@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TierType {
+  iron
+  bronze
+  silver
+  gold
+  platinum
+  emerald
+  diamond
+  master
+  granmaster @map("gran master")
+  challenger
+}
+
+model Tier {
+  id        String   @id @default(uuid())
+  type      TierType
+  level     Int      @default(0)
+  User      User[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("tier")
+}
+
+model User {
+  id           String   @id @unique @default(uuid())
+  name         String
+  email        String   @unique
+  username     String   @unique
+  password     String
+  summonerIcon String?  @map("summoner_icon")
+  level        Int      @default(0)
+  percentage   Int      @default(0)
+  rp           Int      @default(0)
+  essence      Int      @default(0)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  tier   Tier?   @relation(fields: [tierId], references: [id])
+  tierId String? @map("tier_id")
+
+  champion   Champion? @relation(fields: [championId], references: [id])
+  championId String?   @map("champion_id")
+
+  skin   Skin?   @relation(fields: [skinId], references: [id])
+  skinId String? @map("skin_id")
+
+  @@map("users")
+}
+
+enum DamageType {
+  magic
+  physical
+}
+
+model Champion {
+  id              String     @id @default(uuid())
+  name            String     @unique
+  type            String
+  difficulty      String
+  description     String
+  damageType      DamageType @map("damage_type")
+  damage          Int        @default(0)
+  resistance      Int        @default(0)
+  moveSpeed       Int        @default(0) @map("move_speed")
+  groupControl    Int        @default(0) @map("group_control")
+  utility         Int        @default(0) @map("utility")
+  priceRiotPoints Int        @default(0) @map("price_riot_points")
+  priceEssencial  Int        @default(0) @map("price_essencial")
+  createdAt       DateTime   @default(now()) @map("created_at")
+  updatedAt       DateTime   @updatedAt @map("updated_at")
+  User            User[]
+  Skin            Skin       @relation(fields: [skinId], references: [id])
+  skinId          String     @map("skin_id")
+
+  @@map("champions")
+}
+
+enum SkinType {
+  transcendent
+  ultimate
+  mythical
+  legendary
+  epic
+}
+
+model Skin {
+  id              String     @id @default(uuid())
+  name            String
+  splash          String
+  active          Boolean    @default(true)
+  priceRiotPoints Int        @default(0) @map("price_riot_points")
+  createdAt       DateTime   @default(now()) @map("created_at")
+  updatedAt       DateTime   @updatedAt @map("updated_at")
+  type            SkinType
+  Champion        Champion[]
+  User            User[]
+
+  @@map("skins")
+}

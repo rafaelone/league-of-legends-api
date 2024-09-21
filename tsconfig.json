@@ -1,0 +1,28 @@
+{
+  "include": [
+    "src/**/*",
+    "@types/*.d.ts",
+    "src/env/*.mjs",
+    "prisma",
+  ],
+  "compilerOptions": {
+    "lib": [
+      "es2023",
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ES2015",
+    "target": "es2022",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "Bundler",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  }
+}
