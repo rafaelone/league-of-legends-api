@@ -13,6 +13,7 @@ import {
 import { env } from '@/env/index.js'
 
 import { errorHandler } from './error-handler'
+import { authenticateWithPassword } from './routes/auth/authenticate-with-password'
 import { createAccount } from './routes/auth/create-account'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -52,6 +53,7 @@ app.register(fastifyJwt, {
 app.register(fastifyCors)
 
 app.register(createAccount)
+app.register(authenticateWithPassword)
 
 app.listen({ port: env.SERVER_PORT }).then(() => {
   console.log('HTTP server running')
