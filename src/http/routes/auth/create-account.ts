@@ -30,7 +30,7 @@ export async function createAccount(app: FastifyInstance) {
       })
 
       if (userWithSameEmail) {
-        throw new BadRequestError('User with same e-amil already exists')
+        throw new BadRequestError('User with same e-mail already exists')
       }
 
       const userWithSameUsername = await prisma.user.findUnique({

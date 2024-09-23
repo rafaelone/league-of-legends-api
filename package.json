@@ -7,12 +7,13 @@
     "seed": "tsx prisma/seed.ts"
   },
   "scripts": {
-    "dev": "npm run env:load tsx watch src/http/server.ts",
+    "dev": "npm run env:load tsx watch src/main.ts",
     "env:load": "dotenv -e ./.env --",
     "db:migrate": "npm run env:load prisma migrate dev",
     "db:studio": "npm run env:load prisma studio",
     "db:seed": "npm run env:load prisma db seed",
-    "db:init": "npm run env:load prisma init"
+    "db:init": "npm run env:load prisma init",
+    "test": "jest --coverage --watchAll false"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",
@@ -21,20 +22,29 @@
     "@fastify/swagger-ui": "^3.0.0",
     "@prisma/client": "^5.19.1",
     "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
     "fastify": "^4.26.2",
     "fastify-plugin": "^5.0.0",
     "fastify-type-provider-zod": "^1.1.9",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.25.4",
+    "@jest/globals": "^29.7.0",
     "@rocketseat/eslint-config": "^2.2.2",
-    "@t3-oss/env-nextjs": "^0.11.1",
     "@types/bcryptjs": "^2.4.6",
+    "@types/jest": "^29.5.13",
     "@types/node": "^20.12.7",
+    "@types/supertest": "^6.0.2",
+    "babel-jest": "^29.7.0",
     "dotenv-cli": "^7.4.2",
     "eslint-plugin-simple-import-sort": "^12.1.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "prettier": "^3.2.5",
     "prisma": "^5.12.1",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tsx": "^4.7.3",
     "typescript": "^5.6.2"

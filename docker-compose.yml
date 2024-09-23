@@ -8,4 +8,5 @@ services:
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=league-of-legeds
+      - POSTGRES_DB=league-of-legends
+  
