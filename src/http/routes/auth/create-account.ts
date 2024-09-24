@@ -15,7 +15,7 @@ export async function createAccount(app: FastifyInstance) {
         tags: ['auth'],
         summary: 'Create a new account',
         body: z.object({
-          name: z.string().min(6),
+          name: z.string().min(3),
           email: z.string().email(),
           username: z.string().min(6),
           password: z.string().min(6),
@@ -30,7 +30,8 @@ export async function createAccount(app: FastifyInstance) {
       })
 
       if (userWithSameEmail) {
-        throw new BadRequestError('User with same e-mail already exists')
+        console.log('email')
+        throw new BadRequestError('User with same e-mail already exists.')
       }
 
       const userWithSameUsername = await prisma.user.findUnique({
@@ -38,7 +39,8 @@ export async function createAccount(app: FastifyInstance) {
       })
 
       if (userWithSameUsername) {
-        throw new BadRequestError('User with same username already exists')
+        console.log('username')
+        throw new BadRequestError('User with same username already exists.')
       }
 
       const passwordHash = await hash(password, 6)
