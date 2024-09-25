@@ -1,4 +1,3 @@
-// import type { FastifyInstance } from 'fastify'
 import request from 'supertest'
 
 import { app } from '@/http/server'
@@ -60,7 +59,7 @@ describe('Create Account', () => {
     const text = JSON.parse(otherUser.text)
 
     expect(otherUser.status).toBe(400)
-    expect(text.message).toEqual('User with same e-mail already exists')
+    expect(text.message).toEqual('User with same e-mail already exists.')
   })
 
   it('POST /create-account should not be able to create a new account with same username', async () => {
@@ -89,6 +88,6 @@ describe('Create Account', () => {
     const text = JSON.parse(otherUser.text)
 
     expect(otherUser.status).toBe(400)
-    expect(text.message).toEqual('User with same username already exists')
+    expect(text.message).toEqual('User with same username already exists.')
   })
 })

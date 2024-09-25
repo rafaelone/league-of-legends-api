@@ -13,7 +13,9 @@
     "db:studio": "npm run env:load prisma studio",
     "db:seed": "npm run env:load prisma db seed",
     "db:init": "npm run env:load prisma init",
-    "test": "jest --coverage --watchAll false"
+    "env:load-test": "dotenv -e ./.env.test --",
+    "db:studio-test": "npm run env:load-test prisma studio",
+    "test": "dotenv -e ./.env.test -- jest --coverage --watchAll false"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",
@@ -22,6 +24,7 @@
     "@fastify/swagger-ui": "^3.0.0",
     "@prisma/client": "^5.19.1",
     "bcryptjs": "^2.4.3",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "fastify": "^4.26.2",
     "fastify-plugin": "^5.0.0",
