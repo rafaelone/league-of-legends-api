@@ -38,18 +38,20 @@ model Tier {
 }
 
 model User {
-  id           String   @id @unique @default(uuid())
+  id           String  @id @unique @default(uuid())
   name         String
-  email        String   @unique
-  username     String   @unique
+  email        String  @unique
+  username     String  @unique
   password     String
-  summonerIcon String?  @map("summoner_icon")
-  level        Int      @default(0)
-  percentage   Int      @default(0)
-  rp           Int      @default(0)
-  essence      Int      @default(0)
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
+  summonerIcon String? @map("summoner_icon")
+  nickname     String?
+  level        Int     @default(0)
+  percentage   Int     @default(0)
+  rp           Int     @default(0)
+  essence      Int     @default(0)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   tier   Tier?   @relation(fields: [tierId], references: [id])
   tierId String? @map("tier_id")
