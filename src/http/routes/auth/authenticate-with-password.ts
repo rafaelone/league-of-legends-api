@@ -1,5 +1,6 @@
 import { compare } from 'bcryptjs'
 import type { FastifyInstance } from 'fastify'
+import type { FastifyRequest } from 'fastify/types/request'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
@@ -25,7 +26,12 @@ export async function authenticateWithPassword(app: FastifyInstance) {
         },
       },
     },
-    async (request, reply) => {
+    async (
+      request: FastifyRequest<{
+        Body: { username: string; password: string }
+      }>,
+      reply,
+    ) => {
       const { username, password } = request.body
 
       const user = await prisma.user.findUnique({

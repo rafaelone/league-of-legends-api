@@ -9,6 +9,8 @@ const envSchema = z.object({
   SERVER_PORT: z.coerce.number().default(3333),
   DATABASE_URL: z.string().url(),
   JWT_SECRET: z.string(),
+  BUCKET_CHAMPIONS_URL: z.string().url(),
+  URL_HOST: z.string(),
 })
 
 // Validar as variáveis de ambiente carregadas

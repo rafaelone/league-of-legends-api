@@ -9,4 +9,46 @@ services:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=league-of-legends
+    volumes:
+      - ./data/pg:/data/postgres
   
+  s3service:
+    image: quay.io/minio/minio:latest
+    command: server --console-address ":9001" /data
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    env_file: .env
+
+  initialize-s3service:
+    image: quay.io/minio/mc
+    depends_on:
+      - s3service
+    entrypoint: >
+      /bin/sh -c '
+      /usr/bin/mc alias set s3service http://s3service:9000 "$${MINIO_ROOT_USER}" "$${MINIO_ROOT_PASSWORD}";
+      /usr/bin/mc mb s3service/"$${BUCKET_NAME}";
+      /usr/bin/mc admin user add s3service "$${ACCESS_KEY}" "$${SECRET_KEY}";
+      /usr/bin/mc admin policy attach s3service readwrite --user "$${ACCESS_KEY}";
+      exit 0;
+      '
+    env_file: .env
+  
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge          # Usando rede bridge para comunicação entre os serviços
+
+volumes:
+  redis_data:
+    driver: local           # Usar volume local para persistência de dados do Redis
+

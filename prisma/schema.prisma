@@ -56,11 +56,10 @@ model User {
   tier   Tier?   @relation(fields: [tierId], references: [id])
   tierId String? @map("tier_id")
 
-  champion   Champion? @relation(fields: [championId], references: [id])
-  championId String?   @map("champion_id")
-
   skin   Skin?   @relation(fields: [skinId], references: [id])
   skinId String? @map("skin_id")
+
+  champions UserChampion[]
 
   @@map("users")
 }
@@ -71,26 +70,37 @@ enum DamageType {
 }
 
 model Champion {
-  id              String     @id @default(uuid())
-  name            String     @unique
-  type            String
-  difficulty      String
+  id              String   @id @default(uuid())
+  name            String   @unique
+  title           String   @unique
+  // type            String
+  // difficulty      String
   description     String
-  damageType      DamageType @map("damage_type")
-  damage          Int        @default(0)
-  resistance      Int        @default(0)
-  moveSpeed       Int        @default(0) @map("move_speed")
-  groupControl    Int        @default(0) @map("group_control")
-  utility         Int        @default(0) @map("utility")
-  priceRiotPoints Int        @default(0) @map("price_riot_points")
-  priceEssencial  Int        @default(0) @map("price_essencial")
-  createdAt       DateTime   @default(now()) @map("created_at")
-  updatedAt       DateTime   @updatedAt @map("updated_at")
-  User            User[]
-  Skin            Skin       @relation(fields: [skinId], references: [id])
-  skinId          String     @map("skin_id")
+  // damageType      DamageType @map("damage_type")
+  // damage          Int        @default(0)
+  // resistance      Int        @default(0)
+  // moveSpeed       Int        @default(0) @map("move_speed")
+  // groupControl    Int        @default(0) @map("group_control")
+  // utility         Int        @default(0) @map("utility")
+  priceRiotPoints Int      @default(0) @map("price_riot_points")
+  priceEssencial  Int      @default(0) @map("price_essencial")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  Skin   Skin?   @relation(fields: [skinId], references: [id])
+  skinId String? @map("skin_id")
+
+  users UserChampion[]
 
   @@map("champions")
+}
+
+model UserChampion {
+  id         String   @id @default(uuid())
+  userId     String
+  championId String
+  Champion   Champion @relation(fields: [championId], references: [id])
+  User       User     @relation(fields: [userId], references: [id])
 }
 
 enum SkinType {
