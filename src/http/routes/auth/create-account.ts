@@ -41,7 +41,6 @@ export async function createAccount(app: FastifyInstance) {
       })
 
       if (userWithSameEmail) {
-        console.log('email')
         throw new BadRequestError('User with same e-mail already exists.')
       }
 
@@ -50,7 +49,6 @@ export async function createAccount(app: FastifyInstance) {
       })
 
       if (userWithSameUsername) {
-        console.log('username')
         throw new BadRequestError('User with same username already exists.')
       }
 

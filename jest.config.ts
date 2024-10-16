@@ -27,7 +27,7 @@ const config = {
       lines: 80,
     },
   },
-
+  // maxWorkers: 1,
   rootDir: '.',
 
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],

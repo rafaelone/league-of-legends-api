@@ -13,11 +13,12 @@
     "db:studio": "npm run env:load prisma studio",
     "db:seed": "npm run env:load prisma db seed",
     "db:init": "npm run env:load prisma init",
+    "test": "dotenv -e ./.env.test -- jest --coverage --runInBand --watchAll false",
+    "upload-champions-thumbnail": "tsx scripts/upload-champions-thumbnail.ts",
+    "create-champions": "tsx scripts/create-champions.ts",
     "env:load-test": "dotenv -e ./.env.test --",
     "db:studio-test": "npm run env:load-test prisma studio",
-    "test": "dotenv -e ./.env.test -- jest --coverage --watchAll false",
-    "upload-champions-thumbnail": "tsx scripts/upload-champions-thumbnail.ts",
-    "create-champions": "tsx scripts/create-champions.ts"
+    "db:migrate-test": "npm run env:load-test prisma migrate dev"
   },
   "dependencies": {
     "@fastify/cors": "^10.0.1",

@@ -41,7 +41,7 @@ cd league-of-legends-api
 
 ### Envs
 
-fill in the envelopes
+Work in progress
 
 ### Install dependencies
 

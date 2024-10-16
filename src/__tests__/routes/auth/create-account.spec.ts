@@ -34,6 +34,13 @@ describe('Create Account', () => {
   })
 
   it('POST /create-account should not be able to create a new account with same email', async () => {
+    await request(app.server).post('/create-account').send({
+      name: 'Teste User',
+      email: 'teste@example.com',
+      username: 'testuser',
+      password: 'test1234',
+    })
+
     const response = await request(app.server).post('/create-account').send({
       name: 'Teste User',
       email: 'teste@example.com',
@@ -41,25 +48,10 @@ describe('Create Account', () => {
       password: 'test1234',
     })
 
-    expect(response.status).toBe(201)
+    const data = JSON.parse(response.text)
 
-    const user = await prisma.user.findUnique({
-      where: { email: 'teste@example.com' },
-    })
-    expect(user).toBeTruthy()
-    expect(user?.username).toBe('testuser')
-
-    const otherUser = await request(app.server).post('/create-account').send({
-      name: 'Teste User',
-      email: 'teste@example.com',
-      username: 'testuser',
-      password: 'test1234',
-    })
-
-    const text = JSON.parse(otherUser.text)
-
-    expect(otherUser.status).toBe(400)
-    expect(text.message).toEqual('User with same e-mail already exists.')
+    expect(response.status).toBe(400)
+    expect(data.message).toEqual('User with same e-mail already exists.')
   })
 
   it('POST /create-account should not be able to create a new account with same username', async () => {
