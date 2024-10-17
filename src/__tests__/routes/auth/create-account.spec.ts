@@ -18,34 +18,34 @@ describe('Create Account', () => {
 
   it('POST /create-account should be able to a create new account', async () => {
     const response = await request(app.server).post('/create-account').send({
-      name: 'Teste User',
-      email: 'teste@example.com',
-      username: 'testuser',
-      password: 'test1234',
+      name: 'newAccount',
+      email: 'newAccount@example.com',
+      username: 'newAccount',
+      password: 'newAccount',
     })
 
     expect(response.status).toBe(201)
 
     const user = await prisma.user.findUnique({
-      where: { email: 'teste@example.com' },
+      where: { email: 'newAccount@example.com' },
     })
     expect(user).toBeTruthy()
-    expect(user?.username).toBe('testuser')
+    expect(user?.username).toBe('newAccount')
   })
 
   it('POST /create-account should not be able to create a new account with same email', async () => {
     await request(app.server).post('/create-account').send({
-      name: 'Teste User',
-      email: 'teste@example.com',
-      username: 'testuser',
-      password: 'test1234',
+      name: 'newAccount',
+      email: 'newAccount@example.com',
+      username: 'newAccount',
+      password: 'newAccount',
     })
 
     const response = await request(app.server).post('/create-account').send({
-      name: 'Teste User',
-      email: 'teste@example.com',
-      username: 'testuser',
-      password: 'test1234',
+      name: 'newAccount',
+      email: 'newAccount@example.com',
+      username: 'newAccount',
+      password: 'newAccount',
     })
 
     const data = JSON.parse(response.text)
@@ -56,25 +56,25 @@ describe('Create Account', () => {
 
   it('POST /create-account should not be able to create a new account with same username', async () => {
     const response = await request(app.server).post('/create-account').send({
-      name: 'Teste User',
-      email: 'teste@example.com',
-      username: 'testuser',
-      password: 'test1234',
+      name: 'newAccount',
+      email: 'newAccount@example.com',
+      username: 'newAccount',
+      password: 'newAccount',
     })
 
     expect(response.status).toBe(201)
 
     const user = await prisma.user.findUnique({
-      where: { email: 'teste@example.com' },
+      where: { email: 'newAccount@example.com' },
     })
     expect(user).toBeTruthy()
-    expect(user?.username).toBe('testuser')
+    expect(user?.username).toBe('newAccount')
 
     const otherUser = await request(app.server).post('/create-account').send({
-      name: 'Teste User',
-      email: 'teste2@example.com',
-      username: 'testuser',
-      password: 'test1234',
+      name: 'newAccount2',
+      email: 'newAccount2@example.com',
+      username: 'newAccount',
+      password: 'newAccount',
     })
 
     const text = JSON.parse(otherUser.text)

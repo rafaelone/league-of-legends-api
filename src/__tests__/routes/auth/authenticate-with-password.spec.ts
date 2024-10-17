@@ -18,15 +18,15 @@ describe('Authenticate with Password', () => {
 
   it('POST /authenticate should not be able to authenticate with wrong credentials', async () => {
     await request(app.server).post('/create-account').send({
-      name: 'Teste User',
-      email: 'teste@example.com',
-      username: 'testuser',
-      password: 'test1234',
+      name: 'Authenticate credentials',
+      email: 'authenticate@example.com',
+      username: 'authenticate',
+      password: 'authenticate',
     })
 
     const response = await request(app.server).post('/authenticate').send({
-      username: 'test',
-      password: 'test',
+      username: 'authenticate wrong',
+      password: 'authenticate',
     })
 
     const signIn = JSON.parse(response.text)
@@ -36,33 +36,35 @@ describe('Authenticate with Password', () => {
 
   it('POST /authenticate should not be able to authenticate with wrong password', async () => {
     await request(app.server).post('/create-account').send({
-      name: 'Teste User',
-      email: 'teste@example.com',
-      username: 'testuser',
-      password: 'test1234',
+      name: 'Authenticate password',
+      email: 'teauthenticatePassword@example.com',
+      username: 'authenticate',
+      password: 'authenticate',
     })
 
     const response = await request(app.server).post('/authenticate').send({
-      username: 'testuser',
-      password: 'test',
+      username: 'authenticate',
+      password: 'authenticatePassword',
     })
 
     const signIn = JSON.parse(response.text)
+
+    console.log(response.text)
 
     expect(signIn.message).toEqual('Invalid credentials.')
   })
 
   it('POST /authenticate should  be able to authenticate', async () => {
     await request(app.server).post('/create-account').send({
-      name: 'Teste User',
-      email: 'teste@example.com',
-      username: 'testuser',
-      password: 'test1234',
+      name: 'Authenticaete',
+      email: 'authenticate@example.com',
+      username: 'authenticate',
+      password: 'authenticate',
     })
 
     const response = await request(app.server).post('/authenticate').send({
-      username: 'testuser',
-      password: 'test1234',
+      username: 'authenticate',
+      password: 'authenticate',
     })
 
     const signIn = JSON.parse(response.text)

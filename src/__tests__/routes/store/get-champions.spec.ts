@@ -17,15 +17,15 @@ describe('Get all champions', () => {
 
   it('GET /store should be able to get all champions', async () => {
     await request(app.server).post('/create-account').send({
-      name: 'Teste User',
-      email: 'teste@example.com',
-      username: 'testuser',
-      password: 'test1234',
+      name: 'Champions',
+      email: 'champion@example.com',
+      username: 'champion',
+      password: 'champion',
     })
 
     const response = await request(app.server).post('/authenticate').send({
-      username: 'testuser',
-      password: 'test1234',
+      username: 'champion',
+      password: 'champion',
     })
 
     const signIn: { token: string } = JSON.parse(response.text)
@@ -39,15 +39,15 @@ describe('Get all champions', () => {
 
   it('GET /store should be return champions in cache', async () => {
     await request(app.server).post('/create-account').send({
-      name: 'Teste User',
-      email: 'teste@example.com',
-      username: 'testuser',
-      password: 'test1234',
+      name: 'Champions',
+      email: 'champion@example.com',
+      username: 'champion',
+      password: 'champion',
     })
 
     const response = await request(app.server).post('/authenticate').send({
-      username: 'testuser',
-      password: 'test1234',
+      username: 'champion',
+      password: 'champion',
     })
 
     const signIn: { token: string } = JSON.parse(response.text)

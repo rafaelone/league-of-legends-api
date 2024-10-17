@@ -18,15 +18,15 @@ describe('Get User Profile', () => {
 
   it('GET /profile should be able to get user profile', async () => {
     await request(app.server).post('/create-account').send({
-      name: 'Teste User',
-      email: 'teste@example.com',
-      username: 'testuser',
-      password: 'test1234',
+      name: 'profile',
+      email: 'profile@example.com',
+      username: 'profile',
+      password: 'profile',
     })
 
     const response = await request(app.server).post('/authenticate').send({
-      username: 'testuser',
-      password: 'test1234',
+      username: 'profile',
+      password: 'profile',
     })
 
     const signIn: { token: string } = JSON.parse(response.text)

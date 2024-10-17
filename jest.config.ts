@@ -16,6 +16,7 @@ const config = {
     '!src/env/*.ts',
     '!src/http/routes/_errors/*.ts',
     '!src/main.ts',
+    '!src/@types/*.d.ts',
   ],
   coverageProvider: 'v8',
 
