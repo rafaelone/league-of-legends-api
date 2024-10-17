@@ -3,7 +3,7 @@ import fs from 'fs'
 import * as Minio from 'minio'
 import path from 'path'
 
-import ChampionThumbnail from '../jsons/champion-thumbnail.json'
+import ChampionThumbnail from '@/jsons/champion-thumbnail.json'
 
 type ChampionThumbnail = {
   name: string

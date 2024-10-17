@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
-import CreateChampionsJson from '../jsons/create-champions.json'
+import CreateChampionsJson from '@/jsons/create-champions.json'
 
 type Champion = {
   name: string
@@ -30,7 +30,7 @@ async function createChampions(champions: Champion[], index: number) {
   return createChampions(champions, index + 1)
 }
 
-async function main() {
+export async function main() {
   await prisma.userChampion.deleteMany()
   await prisma.champion.deleteMany()
   await createChampions(CreateChampionsJson, 0)

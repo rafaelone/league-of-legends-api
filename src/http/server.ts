@@ -17,7 +17,7 @@ import { errorHandler } from './error-handler'
 import { authenticateWithPassword } from './routes/auth/authenticate-with-password'
 import { createAccount } from './routes/auth/create-account'
 import { getProfile } from './routes/auth/get-profile'
-import { getUserChampions } from './routes/store/get-user-champions'
+import { getChampions } from './routes/store/get-champions'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -63,4 +63,4 @@ app.register(fastifyCors)
 app.register(createAccount)
 app.register(authenticateWithPassword)
 app.register(getProfile)
-app.register(getUserChampions)
+app.register(getChampions)
